@@ -1,3 +1,5 @@
+"use client";
+
 import { InputHTMLAttributes } from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";

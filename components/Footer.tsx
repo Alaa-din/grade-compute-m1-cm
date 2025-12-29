@@ -6,10 +6,16 @@ import Link from "next/link";
 
 export default function Footer() {
     const [year, setYear] = useState<number | string>(2025);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         setYear(new Date().getFullYear());
     }, []);
+
+    if (!isMounted) {
+        return <footer className="w-full py-8 mt-12 opacity-0" />;
+    }
 
     return (
         <footer className="w-full py-8 mt-12 border-t border-[rgba(255,255,255,0.05)] bg-[var(--background)] relative z-10">

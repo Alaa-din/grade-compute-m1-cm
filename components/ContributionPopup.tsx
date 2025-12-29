@@ -1,108 +1,85 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Star, Github, X } from "lucide-react";
 import { Card } from "./ui/Card";
 
 export default function ContributionPopup() {
     const [isOpen, setIsOpen] = useState(false);
-    const [hasVisited, setHasVisited] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        // Check if the user has already dismissed the popup
-        const visited = localStorage.getItem("grade-compute-visited");
-        if (visited === "true") {
-            setHasVisited(true);
-            return;
+        setIsMounted(true);
+        // Using a unique key to force display for the current session/user
+        const popupSeen = localStorage.getItem("grade-compute-v-final-100");
+        if (!popupSeen) {
+            const timer = setTimeout(() => {
+                setIsOpen(true);
+            }, 3000); // 3 seconds delay
+            return () => clearTimeout(timer);
         }
-
-        // Show popup after 5 seconds for easier testing
-        const timer = setTimeout(() => {
-            setIsOpen(true);
-        }, 5000);
-
-        return () => clearTimeout(timer);
     }, []);
 
     const handleDismiss = () => {
         setIsOpen(false);
-        // Don't save permanent dismissal, maybe just session?
-        // User asked: "Sauvegarder dans localStorage" -> implying permanent Dismiss
-        localStorage.setItem("grade-compute-visited", "true");
-        setHasVisited(true);
+        localStorage.setItem("grade-compute-v-final-100", "true");
     };
 
     const handleGithubVisit = () => {
         window.open("https://github.com/Alaa-din/grade-compute-m1-cm", "_blank");
     };
 
-    if (hasVisited) return null;
+    if (!isMounted || !isOpen) return null;
 
     return (
-        <AnimatePresence>
-            {isOpen && (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
-                >
-                    <motion.div
-                        initial={{ scale: 0.9, y: 20 }}
-                        animate={{ scale: 1, y: 0 }}
-                        exit={{ scale: 0.9, y: 20 }}
-                        className="w-full max-w-md"
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md px-4">
+            <div className="w-full max-w-md animate-in fade-in zoom-in duration-300">
+                <Card className="relative bg-[#1e1e20] border-[var(--color-ind-blue)] p-8 shadow-2xl">
+                    {/* Close Button */}
+                    <button
+                        onClick={handleDismiss}
+                        className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
                     >
-                        <Card className="relative bg-[var(--color-dark-bg)] border-[var(--color-ind-blue)] p-6 shadow-2xl overflow-hidden">
-                            {/* Close Button */}
+                        <X size={24} />
+                    </button>
+
+                    <div className="flex flex-col items-center text-center gap-5">
+                        <div className="p-4 bg-[var(--color-ind-blue)]/20 rounded-full text-[var(--color-gold)]">
+                            <Star size={40} />
+                        </div>
+
+                        <h3 className="text-2xl font-bold text-white">
+                            Merci d’utiliser mon outil ! 💙
+                        </h3>
+
+                        <div className="space-y-2 text-gray-300 text-sm leading-relaxed">
+                            <p>✅ <a href="https://github.com/Alaa-din/grade-compute-m1-cm" target="_blank" rel="noopener noreferrer" className="text-[var(--color-ind-blue)] hover:underline">Visiter le repo GitHub</a></p>
+                            <p>⭐ Donner un Star pour m’encourager</p>
+                            <p>💬 Proposer des améliorations</p>
+                        </div>
+
+                        <div className="text-[var(--color-gold)] font-arabic text-sm mt-2 italic">
+                            "دعواتكم لصاحب التطبيق, votre développeur"
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-3 w-full mt-4">
+                            <button
+                                onClick={handleGithubVisit}
+                                className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-ind-blue)] hover:bg-[var(--color-ind-blue)]/80 text-white py-3 rounded-xl font-bold transition-all transform active:scale-95"
+                            >
+                                <Github size={20} />
+                                Visiter GitHub
+                            </button>
                             <button
                                 onClick={handleDismiss}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-white"
+                                className="flex-1 bg-white/10 hover:bg-white/20 text-gray-300 py-3 rounded-xl font-medium transition-colors"
                             >
-                                <X size={20} />
+                                Plus tard
                             </button>
-
-                            <div className="flex flex-col items-center text-center gap-4">
-                                <div className="p-3 bg-[var(--color-ind-blue)]/20 rounded-full text-[var(--color-ind-blue)]">
-                                    <Star size={32} />
-                                </div>
-
-                                <h3 className="text-xl font-bold text-white">
-                                    Merci d’utiliser mon outil ! 💙
-                                </h3>
-
-                                <p className="text-gray-300 text-sm leading-relaxed">
-                                    Si vous l’appréciez, n’hésitez pas à : <br />
-                                    ✅ <a href="https://github.com/Alaa-din/grade-compute-m1-cm" target="_blank" rel="noopener noreferrer" className="text-[var(--color-ind-blue)] hover:underline">Visiter le repo GitHub</a> <br />
-                                    ⭐ Donner un Star pour m’encourager <br />
-                                    💬 Proposer des améliorations
-                                </p>
-
-                                <div className="text-[var(--color-gold)] font-arabic text-sm mt-2">
-                                    "دعواتكم لصاحب التطبيق, votre développeur"
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-3 w-full mt-4">
-                                    <button
-                                        onClick={handleGithubVisit}
-                                        className="flex-1 flex items-center justify-center gap-2 bg-[var(--color-ind-blue)] hover:bg-[var(--color-ind-blue)]/80 text-white py-2.5 rounded-lg font-medium transition-colors"
-                                    >
-                                        <Github size={18} />
-                                        Visiter GitHub
-                                    </button>
-                                    <button
-                                        onClick={handleDismiss}
-                                        className="flex-1 bg-white/5 hover:bg-white/10 text-gray-300 py-2.5 rounded-lg font-medium transition-colors"
-                                    >
-                                        Ne plus afficher
-                                    </button>
-                                </div>
-                            </div>
-                        </Card>
-                    </motion.div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        </div>
     );
 }

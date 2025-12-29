@@ -1,3 +1,5 @@
+"use client";
+
 import Background from "@/components/Background";
 import Calculator from "@/components/Calculator";
 import ContributionPopup from "@/components/ContributionPopup";

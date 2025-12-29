@@ -87,12 +87,8 @@ export default function Calculator() {
 
         const semesterAverage = totalWeightedScore / TOTAL_COEFFICIENTS;
 
-        // If semester average >= 10, all credits are validated (compensation rule usually, 
-        // but user said "Affichage optionnel des crédits acquis (si note ≥ 10)". 
-        // Usually if Avg >= 10, then Total Credits = 30. 
-        // If Avg < 10, then Sum of credits where module >= 10.
-        // I will implement "If Avg >= 10, displayed credits = 30, else sum of acquired".
-
+        // LMD System: If average >= 10, the whole semester is validated (30 credits)
+        // Otherwise, only modules with grade >= 10 give their respective credits.
         const finalCredits = semesterAverage >= 10 ? TOTAL_CREDITS : acquiredCredits;
 
         return {
@@ -165,7 +161,7 @@ export default function Calculator() {
                                     )}
 
                                     {/* Module Average Badge */}
-                                    <div className="flex flex-col items-center justify-end h-full pb-0.5 min-w-[3rem]">
+                                    <div className="flex flex-col items-center justify-end h-full pb-0.5 min-w-[4rem]">
                                         <span className="text-[10px] uppercase text-gray-500 mb-1">Moy.</span>
                                         <span className={clsx(
                                             "font-bold text-lg",
@@ -173,12 +169,39 @@ export default function Calculator() {
                                         )}>
                                             {modGrade.toFixed(2)}
                                         </span>
+                                        {modGrade >= 10 && (
+                                            <span className="text-[9px] text-[var(--color-emerald-custom)] font-bold opacity-80 mt-1">
+                                                +{module.credits} CR
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             </Card>
                         </motion.div>
                     );
                 })}
+            </div>
+
+            <div className="flex flex-col items-center gap-3 pt-6">
+                <button
+                    onClick={() => {
+                        localStorage.removeItem("grade-compute-v2");
+                        window.location.reload();
+                    }}
+                    className="text-[10px] text-gray-600 hover:text-[var(--color-gold)] transition-colors uppercase tracking-widest"
+                >
+                    Tester le Popup (Debug)
+                </button>
+                <button
+                    onClick={() => {
+                        if (confirm("Voulez-vous vraiment effacer toutes les notes ?")) {
+                            setGrades({});
+                        }
+                    }}
+                    className="text-xs text-red-500/50 hover:text-red-500 transition-colors uppercase tracking-widest font-medium"
+                >
+                    Réinitialiser tout
+                </button>
             </div>
 
             <ResultDisplay

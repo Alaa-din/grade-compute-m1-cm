@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle } from "lucide-react";
 import { clsx } from "clsx";
@@ -35,11 +37,12 @@ export default function ResultDisplay({ average, isValidated, totalCredits }: Re
                     {isValidated ? "Semestre Validé" : "Semestre Non Validé"}
                 </div>
 
-                {isValidated && (
-                    <div className="mt-2 text-sm text-[var(--color-gold)] font-medium">
-                        Crédits acquis : {totalCredits} / 30
+                <div className="mt-4 flex flex-col items-center gap-1">
+                    <span className="text-[10px] uppercase opacity-50 tracking-widest">Crédits accumulés</span>
+                    <div className="text-xl font-bold text-[var(--color-gold)]">
+                        {totalCredits} <span className="text-xs opacity-50">/ 30</span>
                     </div>
-                )}
+                </div>
             </div>
 
             {/* Background Glow */}

@@ -1,8 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Background() {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null;
+
     return (
         <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-[var(--background)]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,91,150,0.05)_0%,rgba(0,0,0,0)_70%)]" />
