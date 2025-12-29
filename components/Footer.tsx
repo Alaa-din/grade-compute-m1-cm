@@ -44,7 +44,7 @@ export default function Footer() {
                     <a href="mailto:votre.elaichialadin1@gmail.com" className="hover:text-[var(--color-gold)] transition-colors">
                         <Mail size={18} />
                     </a>
-                    <a href="https://github.com/Alaa-din/grade-compute-m1-cm" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-gold)] transition-colors">
+                    <a href="https://github.com/Alaa-din" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-gold)] transition-colors">
                         <Github size={18} />
                     </a>
                     <a href="https://www.linkedin.com/in/alaaeddine-elaichi-9064291a5/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-gold)] transition-colors">
