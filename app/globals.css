@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mech-gray: #2D3134;
+  --color-ind-blue: #005B96;
+  --color-emerald-custom: #008060;
+  --color-gold: #FFD700;
+  
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --background: #1a1a1a; 
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
