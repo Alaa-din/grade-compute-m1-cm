@@ -74,7 +74,7 @@ export default function ContributionPopup() {
 
                                 <p className="text-gray-300 text-sm leading-relaxed">
                                     Si vous l’appréciez, n’hésitez pas à : <br />
-                                    ✅ Visiter le repo GitHub <br />
+                                    ✅ <a href="https://github.com/Alaa-din/grade-compute-m1-cm" target="_blank" rel="noopener noreferrer" className="text-[var(--color-ind-blue)] hover:underline">Visiter le repo GitHub</a> <br />
                                     ⭐ Donner un Star pour m’encourager <br />
                                     💬 Proposer des améliorations
                                 </p>
