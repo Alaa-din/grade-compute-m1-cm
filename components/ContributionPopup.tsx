@@ -12,15 +12,15 @@ export default function ContributionPopup() {
     useEffect(() => {
         // Check if the user has already dismissed the popup
         const visited = localStorage.getItem("grade-compute-visited");
-        if (visited) {
+        if (visited === "true") {
             setHasVisited(true);
             return;
         }
 
-        // Show popup after 30 seconds or based on session logic
+        // Show popup after 5 seconds for easier testing
         const timer = setTimeout(() => {
             setIsOpen(true);
-        }, 30000); // 30 seconds
+        }, 5000);
 
         return () => clearTimeout(timer);
     }, []);

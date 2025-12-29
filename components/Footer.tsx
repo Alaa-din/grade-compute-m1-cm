@@ -1,8 +1,15 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
-    const currentYear = new Date().getFullYear();
+    const [year, setYear] = useState<number | string>(2025);
+
+    useEffect(() => {
+        setYear(new Date().getFullYear());
+    }, []);
 
     return (
         <footer className="w-full py-8 mt-12 border-t border-[rgba(255,255,255,0.05)] bg-[var(--background)] relative z-10">
@@ -23,7 +30,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="text-center opacity-60">
-                    © {currentYear} . Tous droits réservés.
+                    © {year} . Tous droits réservés.
                 </div>
 
                 {/* Contacts */}

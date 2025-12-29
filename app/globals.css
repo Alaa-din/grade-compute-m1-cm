@@ -5,13 +5,14 @@
   --color-ind-blue: #005B96;
   --color-emerald-custom: #008060;
   --color-gold: #FFD700;
-  
+
   --font-sans: var(--font-inter);
 }
 
 :root {
-  --background: #1a1a1a; 
+  --background: #1a1a1a;
   --foreground: #ededed;
+  --color-dark-bg: #1e1e20;
 }
 
 body {
