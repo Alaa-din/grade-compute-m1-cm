@@ -267,7 +267,7 @@ export default function Calculator() {
                                     </motion.div>
                                 ) : (
                                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex flex-col items-center">
-                                        <span className="text-5xl mb-2">😢💔</span>
+                                        <span className="text-5xl mb-2">🔄💪</span>
                                         <h2 className="text-2xl font-bold text-red-400">Ajourné</h2>
                                         <p className="text-red-400/70 text-sm mt-1">Courage pour la session de rattrapage.</p>
                                     </motion.div>
