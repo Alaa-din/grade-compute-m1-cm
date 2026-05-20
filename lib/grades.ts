@@ -6,7 +6,7 @@ export interface Module {
   type: 'mixed' | 'ca_only' | 'exam_only'; // mixed = 40% CA, 60% Exam
 }
 
-export const MODULES: Module[] = [
+export const MODULES_S1: Module[] = [
   {
     id: 'mmc',
     name: 'Mécanique des milieux continus',
@@ -72,18 +72,84 @@ export const MODULES: Module[] = [
   },
 ];
 
-export const TOTAL_COEFFICIENTS = 17;
-export const TOTAL_CREDITS = 30;
+export const MODULES_S2: Module[] = [
+  {
+    id: 'mef',
+    name: 'Méthode des éléments finis',
+    coefficient: 3,
+    credits: 6,
+    type: 'mixed',
+  },
+  {
+    id: 'csm',
+    name: 'Conception de systèmes mécanique',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+  {
+    id: 'opt',
+    name: 'Optimisation',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+  {
+    id: 'tp_mef',
+    name: 'Travaux Pratique Méthode des éléments finis',
+    coefficient: 1,
+    credits: 2,
+    type: 'ca_only',
+  },
+  {
+    id: 'cfao',
+    name: 'Conception et Fabrication Assisté par Ordinateur',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+  {
+    id: 'ia',
+    name: 'Eléments d\'IA appliquée',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+  {
+    id: 'ethique',
+    name: 'Respect des normes et règles d\'éthique',
+    coefficient: 1,
+    credits: 2,
+    type: 'exam_only',
+  },
+  {
+    id: 'smar',
+    name: 'Systèmes mécaniques articulés et robotique',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+  {
+    id: 'dsa',
+    name: 'Dynamique des structures avancée',
+    coefficient: 2,
+    credits: 4,
+    type: 'mixed',
+  },
+];
+
+export const ALL_MODULES = [...MODULES_S1, ...MODULES_S2];
+
+export const TOTAL_COEFFICIENTS_S1 = 17;
+export const TOTAL_CREDITS_S1 = 30;
+
+export const TOTAL_COEFFICIENTS_S2 = 17;
+export const TOTAL_CREDITS_S2 = 30;
 
 export function calculateModuleAverage(moduleId: string, ca: number | undefined, exam: number | undefined): number {
-  const module = MODULES.find((m) => m.id === moduleId);
+  const module = ALL_MODULES.find((m) => m.id === moduleId);
   if (!module) return 0;
 
-  // Treat undefined as 0 for calculation, but UI might handle it differently (empty)
-  // Logic: if field is disabled, it shouldn't be required.
-  // Actually, we should probably handle inputs at the component level.
-  // Here we assume valid numbered inputs or 0.
-  
   const caScore = ca || 0;
   const examScore = exam || 0;
 
